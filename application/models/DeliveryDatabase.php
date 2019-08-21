@@ -13,17 +13,24 @@ class DeliveryDatabase extends CI_Model{
                                 'deliverTo'=>$this->input->post('deliverTo'));
 
         // as input attribute 'required' is used in html 'if(not empty)' is not checked
-        
-        $this->db->trans_start();
-            $this->db->insert('deliveryaddress',$insertAddress);
-        $this->db->trans_complete();
-        if($this->db->trans_status() === TRUE)
+        if($_POST['mobileNumber']!=null)
         {
-           return "success";
+            $this->db->trans_start();
+                $this->db->insert('deliveryaddress',$insertAddress);
+            $this->db->trans_complete();
+            if($this->db->trans_status() === TRUE)
+            {
+            return "success";
+            }
+            else
+            {
+                return "error";
+            }
         }
         else
         {
-            return "error";
+            return "empty";
         }
+        
     }
 }

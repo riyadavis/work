@@ -32,7 +32,7 @@
         </div>
         <div class="form-group">
             <label for="mobileNumber"><b>Mobile Number</b></label>
-            <input type="number" class="form-control" id="mobileNumber" oninput="unCheckBox();" name="mobileNumber">
+            <input type="text" class="form-control" pattern="/d*" id="mobileNumber" onchange="unCheckBox();" name="mobileNumber" maxlength="10" minlength="10">
         </div>
         
         <div class="form-check">
@@ -77,7 +77,7 @@
         async function Retrieve()
         {
            
-           var url = "<?php echo site_url('DeliveryApi/retrieveNumber')?>";
+           var url = "<?php echo site_url('GetDeliveryApi/retrieveNumber')?>";
            request = await fetch(url);
            response = await request.json();
            console.log(response);
