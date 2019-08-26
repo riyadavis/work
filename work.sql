@@ -2,12 +2,12 @@ create DATABASE work;
 
 create TABLE deliveryAddress(id int PRIMARY KEY AUTO_INCREMENT, customerName varchar(25), customerAddress text, deliveryPincode int,landmark text, mobileNumber varchar(12),deliverTo varchar(10));
 
-CREATE TABLE category(category_id int PRIMARY KEY AUTO_INCREMENT,category_name varchar(20),product_tag text);
+CREATE TABLE category(id int PRIMARY KEY AUTO_INCREMENT,category_name varchar(20),product_tag text);
 INSERT INTO `category`( `category_name`, `product_tag`) VALUES ('Books','Fiction, non Fiction, Educational books');
 INSERT INTO `category`(`category_name`, `product_tag`) VALUES ('Gaming','Gaming consoles, Smart Glasses');
 INSERT INTO `category`(`category_name`, `product_tag`) VALUES ('Air Conditioner','Split AC, Inverter AC, Window AC');
 
-CREATE TABLE coupon(coupon_id int PRIMARY key AUTO_INCREMENT,coupon_code varchar(8), category_id int, FOREIGN KEY (category_id)REFERENCES category(category_id));
+CREATE TABLE coupon(id int PRIMARY key AUTO_INCREMENT,coupon_code varchar(8), category_id int, FOREIGN KEY (category_id)REFERENCES category(category_id));
 INSERT INTO `coupon`(`coupon_code`, `category_id`) VALUES ('BOX100','1');
 INSERT INTO `coupon`(`coupon_code`, `category_id`) VALUES ('GAME500','2');
 INSERT INTO `coupon`( `coupon_code`, `category_id`) VALUES ('AC5000','3');
@@ -20,4 +20,17 @@ create table users(id int PRIMARY KEY AUTO_INCREMENT, mobile varchar(10));
 INSERT INTO `users`(`mobile`) VALUES (9456789654);
 
 create TABLE cart(id int PRIMARY KEY AUTO_INCREMENT, user_id int, product_id int, time_stamp timestamp, coupon_code varchar(20), FOREIGN KEY(user_id) REFERENCES users(id), FOREIGN KEY(product_id) REFERENCES product(id));
-ALTER TABLE `cart` ADD `quantity` INT(5) AFTER `product_id`;
+-- ALTER TABLE `cart` ADD `quantity` INT(5) AFTER `product_id`;
+
+INSERT INTO `category`(`category_name`, `product_tag`) VALUES ('Mobiles', 'mobile , cheap mobiles, HD quality Mobiles');
+INSERT INTO `coupon`(`coupon_code`, `category_id`) VALUES ('MOB3000','4');
+
+ALTER table product ADD category_id int;
+ALTER TABLE product ADD FOREIGN KEY(category_id) REFERENCES category(id);
+UPDATE `product` SET `category_id` = '4' WHERE `product`.`id` = 1; UPDATE `product` SET `category_id` = '2' WHERE `product`.`id` = 2;
+
+ALTER TABLE `cart` ADD `order_id` INT AFTER `coupon_code`;
+CREATE table customer_order(id int PRIMARY KEY AUTO_INCREMENT, time_stamp timestamp);
+ALTER table customer_order ADD customer_id int ;
+ALTER TABLE customer_order ADD FOREIGN KEY(customer_id) REFERENCES users(id);
+

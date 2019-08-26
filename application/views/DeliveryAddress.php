@@ -15,10 +15,6 @@
     <div class="container">
         <form style="width:40%; margin-left:25%; margin-top:2%;" action="<?php echo site_url('DeliveryApi/InsertAddress') ?>" method="post">
         <div class="form-group">
-            <label for="customerName"><b>Customer Name</b></label>
-            <input type="text" class="form-control" id="customerName"  placeholder="Enter Your Name" name="customerName" required>
-        </div>
-        <div class="form-group">
             <label for="customerAddress"><b>Customer Address</b></label>
             <textarea class="form-control rounded-0" id="customerAddress" rows="3" placeholder="Enter Your Address" name="customerAddress" required></textarea>
         </div>
@@ -32,7 +28,7 @@
         </div>
         <div class="form-group">
             <label for="mobileNumber"><b>Mobile Number</b></label>
-            <input type="text" class="form-control" pattern="/d*" id="mobileNumber" onchange="unCheckBox();" name="mobileNumber" maxlength="10" minlength="10">
+            <input type="tel" class="form-control"  id="mobileNumber" onchange="unCheckBox();" name="mobileNumber" maxlength="10" minlength="10">
         </div>
         
         <div class="form-check">
@@ -72,7 +68,7 @@
     }
     if ($('#signupMobileNumber').is(":checked"))
     {
-        console.log("success");
+        // console.log("success");
         Retrieve();
         async function Retrieve()
         {
@@ -85,6 +81,7 @@
            $mobileValue.value = response;
         }
     }
+
 </script>
 <script src="<?php echo base_url().'assets/js/bootstrap.min.js';?>"></script>
 </html>
