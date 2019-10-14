@@ -34,3 +34,20 @@ CREATE table customer_order(id int PRIMARY KEY AUTO_INCREMENT, time_stamp timest
 ALTER table customer_order ADD customer_id int ;
 ALTER TABLE customer_order ADD FOREIGN KEY(customer_id) REFERENCES users(id);
 
+ALTER TABLE `coupon` ADD `Discount%` VARCHAR(3) NOT NULL AFTER `coupon_code`, ADD `MaxusePC` INT(2) NOT NULL AFTER `Discount%`;
+UPDATE `coupon` SET `Discount%` = '20', `MaxusePC` = '2' WHERE `coupon`.`id` = 1; UPDATE `coupon` SET `Discount%` = '30', `MaxusePC` = '2' WHERE `coupon`.`id` = 2; UPDATE `coupon` SET `Discount%` = '10', `MaxusePC` = '2' WHERE `coupon`.`id` = 3; UPDATE `coupon` SET `Discount%` = '15', `MaxusePC` = '2' WHERE `coupon`.`id` = 4;
+ CREATE table couponSubscription(id int PRIMARY KEY AUTO_INCREMENT,customer_id int, coupon_id int,UseCount int, time_stamp timestamp);
+ ALTER table couponsubscription ADD FOREIGN KEY(customer_id) REFERENCES customer(id), ADD FOREIGN KEY(coupon_id) REFERENCES coupon(id);
+ALTER TABLE `product` ADD `hub_id` INT NOT NULL AFTER `category_id`, ADD `product_tags` VARCHAR(70) NOT NULL AFTER `hub_id`, ADD `max_discount` INT NOT NULL AFTER `product_tags`, ADD `min_discount` INT NOT NULL AFTER `max_discount`;
+UPDATE `product` SET `hub_id` = '1', `product_tags` = 'HD quality, Cheap', `max_discount` = '35', `min_discount` = '5' WHERE `product`.`id` = 1; UPDATE `product` SET `hub_id` = '1', `product_tags` = 'HD display, High quality', `max_discount` = '30', `min_discount` = '10' WHERE `product`.`id` = 2;
+ALTER TABLE `cart` CHANGE `user_id` `customer_id` INT(11) NULL DEFAULT NULL;
+ALTER TABLE `cart` DROP `coupon_code`, DROP `order_id`;
+ALTER TABLE `cart` ADD `items_added` TEXT NOT NULL AFTER `customer_id`, ADD `source_id` INT NOT NULL AFTER `items_added`;
+
+drop table cart;
+CREATE TABLE cart(id int PRIMARY key AUTO_INCREMENT,customer_id int,items_added text, source_id int,time_stamp timestamp,FOREIGN KEY(customer_id) REFERENCES customer(id));
+CREATE TABLE distributor_hub(id int PRIMARY KEY AUTO_INCREMENT,distributor_id int,location_coordinate text,pickup_address text,image text,offer_id int);
+ALTER TABLE `distributor_hub` ADD `hub_name` VARCHAR(50) NOT NULL AFTER `distributor_id`;
+
+
+CREATE TABLE api_table(id int PRIMARY KEY AUTO_INCREMENT,salt char(32), FULLTEXT(salt));

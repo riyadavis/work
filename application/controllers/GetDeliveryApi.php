@@ -10,22 +10,20 @@ class GetDeliveryApi extends CI_Controller{
         header('Access-Control-Allow-Credentials: true');    
         header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
         $this->load->model('DeliveryDatabase');
+        if($this->session->has_userdata('userauth') == FALSE)
+        {
+			$this->AddToCartDatabase->SaltData();
+			if($this->session->has_userdata('userauth') == FALSE)
+			{
+                echo json_encode("error");
+                die();
+			}
+		}
     }
 
     public function retrieveNumber()
-    {
-        // assuming the phone number is stored as session value
-        // considering 'username' as session variable and 'username' has phone number in it
-
-        if($this->session->has_userdata('username'))
-        {
-            $mobile = $_SESSION['username'];
-            echo json_encode($mobile);
-        }
-        else
-        {
-            $mobile = "error";
-            echo json_encode($mobile);
-        }
+    {      
+           $data = $this->DeliveryDatabase->retrieveNumber();
+           echo json_encode($data);
     }
 }

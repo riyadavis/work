@@ -10,6 +10,7 @@ class DeliveryApi extends CI_Controller{
         header('Access-Control-Allow-Credentials: true');    
         header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
         $this->load->model('DeliveryDatabase');
+        
     }
 
     public function DeliveryAddress()
@@ -26,23 +27,23 @@ class DeliveryApi extends CI_Controller{
     {
         $data = $this->DeliveryDatabase->InsertAddress();
         // echo $data;
-        print_r($data);
+        // print_r($data);
     }
 
-    public function retrieveNumber()
-    {
-        // assuming the phone number is stored as session value
-        // considering 'username' as session variable and 'username' has phone number in it
+    // public function retrieveNumber()
+    // {
+    //     // assuming the phone number is stored as session value
+    //     // considering 'username' as session variable and 'username' has phone number in it
 
-        if($this->session->has_userdata('username'))
-        {
-            $mobile = $_SESSION['username'];
-            echo json_encode($mobile);
-        }
-        else
-        {
-            $mobile = "error";
-            echo json_encode($mobile);
-        }
-    }
+    //     if($this->session->has_userdata('username'))
+    //     {
+    //         $mobile = $_SESSION['username'];
+    //         echo json_encode($mobile);
+    //     }
+    //     else
+    //     {
+    //         $mobile = "error";
+    //         echo json_encode($mobile);
+    //     }
+    // }
 }

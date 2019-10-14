@@ -13,7 +13,7 @@
 </head>
 <body>
     <div class="container">
-        <form style="width:40%; margin-left:25%; margin-top:2%;" action="<?php echo site_url('DeliveryApi/InsertAddress') ?>" method="post">
+        <form style="width:40%; margin-left:25%; margin-top:2%;" action="<?php echo site_url('DeliveryApi/InsertAddress') ?>?id=1" method="post">
         <div class="form-group">
             <label for="customerAddress"><b>Customer Address</b></label>
             <textarea class="form-control rounded-0" id="customerAddress" rows="3" placeholder="Enter Your Address" name="customerAddress" required></textarea>
@@ -73,7 +73,7 @@
         async function Retrieve()
         {
            
-           var url = "<?php echo site_url('GetDeliveryApi/retrieveNumber')?>";
+           var url = "<?php echo site_url('GetDeliveryApi/retrieveNumber')?>?q=1";
            request = await fetch(url);
            response = await request.json();
            console.log(response);
